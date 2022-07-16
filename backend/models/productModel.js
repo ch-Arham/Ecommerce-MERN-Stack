@@ -23,9 +23,8 @@ const ProductSchema = new Schema({
     },
     ratings: {
         type: Number,
-        required: [true, "Product rating is required"],
-        min: [0, "Product Rating Must Be At Least 0"],
-        max: [5, "Product Rating Must Be At Most 5"],
+        min: [0, "Product Ratings Must Be At Least 0"],
+        max: [5, "Product Ratings Must Be At Most 5"],
         default: 0
     },
     images: [

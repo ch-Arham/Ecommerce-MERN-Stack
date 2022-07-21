@@ -1,6 +1,7 @@
 const Product = require('../models/ProductModel');
-const catchAsyncError = require('../utils/catchAsyncError');
+const catchAsyncError = require("../middleware/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
+const ApiFeatures = require("../utils/apiFeatures");
 
 // Controller 1: Create a new product /api/v1/products/new -- Admin only -- POST
 exports.createProduct = catchAsyncError(async (req, res) => {
@@ -10,7 +11,10 @@ exports.createProduct = catchAsyncError(async (req, res) => {
 
 // Controller 2: Get all products /api/v1/products  -- GET
 exports.getAllProducts = catchAsyncError(async (req, res) => {
-    const product = await Product.find();
+    
+    const apiFeature = new ApiFeatures(Product.find(), req.query).search();
+    
+    const product = await apiFeature.query; // instead of Product.find() again, we use the query we created in ApiFeatures
 
     if(!product) {
         return next("No Products Found", 404);

@@ -12,7 +12,7 @@ exports.createProduct = catchAsyncError(async (req, res) => {
 // Controller 2: Get all products /api/v1/products  -- GET
 exports.getAllProducts = catchAsyncError(async (req, res) => {
     
-    const apiFeature = new ApiFeatures(Product.find(), req.query).search();
+    const apiFeature = new ApiFeatures(Product.find(), req.query).search().filter();
     
     const product = await apiFeature.query; // instead of Product.find() again, we use the query we created in ApiFeatures
 
